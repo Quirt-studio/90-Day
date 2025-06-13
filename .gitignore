@@ -1,0 +1,8 @@
+node_modules/
+# 忽略依赖目录
+node_modules/
+.env
+dist/
+build/
+*.log
+.DS_Store
