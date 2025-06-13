@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Career Compass Pro - 高保真原型预览</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .prototype-frame {
+            border: 2px solid #e5e7eb;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            background: white;
+        }
+        .browser-bar {
+            background: linear-gradient(to bottom, #f3f4f6, #e5e7eb);
+            height: 40px;
+            display: flex;
+            align-items: center;
+            padding: 0 16px;
+            border-bottom: 1px solid #d1d5db;
+        }
+        .browser-controls {
+            display: flex;
+            gap: 8px;
+        }
+        .browser-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+        .dot-red { background-color: #ef4444; }
+        .dot-yellow { background-color: #f59e0b; }
+        .dot-green { background-color: #10b981; }
+        .address-bar {
+            flex: 1;
+            margin-left: 16px;
+            background: white;
+            border: 1px solid #d1d5db;
+            border-radius: 6px;
+            padding: 4px 12px;
+            font-size: 12px;
+            color: #6b7280;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 min-h-screen">
+    <!-- Header -->
+    <header class="bg-white shadow-sm border-b">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center py-6">
+                <div class="flex items-center">
+                    <div class="flex-shrink-0">
+                        <i class="fas fa-compass text-3xl text-blue-600"></i>
+                    </div>
+                    <div class="ml-4">
+                        <h1 class="text-2xl font-bold text-gray-900">Career Compass Pro</h1>
+                        <p class="text-sm text-gray-600">高保真交互原型预览</p>
+                    </div>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <span class="text-sm text-gray-500">基于 PRD v1.0 & 用户故事地图</span>
+                    <div class="flex items-center space-x-2">
+                        <i class="fab fa-html5 text-orange-500"></i>
+                        <i class="fab fa-css3-alt text-blue-500"></i>
+                        <i class="fas fa-palette text-purple-500"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <!-- Introduction Section -->
+        <div class="bg-white rounded-lg shadow-sm p-6 mb-8">
+            <h2 class="text-xl font-semibold text-gray-900 mb-4">
+                <i class="fas fa-info-circle text-blue-600 mr-2"></i>
+                原型说明
+            </h2>
+            <div class="grid md:grid-cols-2 gap-6">
+                <div>
+                    <h3 class="font-medium text-gray-900 mb-2">产品概述</h3>
+                    <p class="text-gray-600 text-sm leading-relaxed">
+                        Career Compass Pro 是一款AI驱动的职业规划平台，专为20-30岁年轻专业人士设计。
+                        通过AI垂直领域定位、动态技能热力图、90天原子级计划等核心功能，
+                        帮助用户精准定位职业方向，缩短迷茫期，降低试错成本。
+                    </p>
+                </div>
+                <div>
+                    <h3 class="font-medium text-gray-900 mb-2">技术栈</h3>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="px-2 py-1 bg-blue-100 text-blue-800 text-xs rounded">HTML5</span>
+                        <span class="px-2 py-1 bg-cyan-100 text-cyan-800 text-xs rounded">Tailwind CSS</span>
+                        <span class="px-2 py-1 bg-orange-100 text-orange-800 text-xs rounded">FontAwesome</span>
+                        <span class="px-2 py-1 bg-green-100 text-green-800 text-xs rounded">Responsive Design</span>
+                        <span class="px-2 py-1 bg-purple-100 text-purple-800 text-xs rounded">Web Platform</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Navigation Menu -->
+        <div class="bg-white rounded-lg shadow-sm p-4 mb-8">
+            <h3 class="text-lg font-medium text-gray-900 mb-4">
+                <i class="fas fa-sitemap text-blue-600 mr-2"></i>
+                原型导航
+            </h3>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+                <button onclick="scrollToSection('home')" class="flex items-center p-3 bg-blue-50 hover:bg-blue-100 rounded-lg transition-colors">
+                    <i class="fas fa-home text-blue-600 mr-2"></i>
+                    <span class="text-sm font-medium">首页</span>
+                </button>
+                <button onclick="scrollToSection('locator')" class="flex items-center p-3 bg-green-50 hover:bg-green-100 rounded-lg transition-colors">
+                    <i class="fas fa-crosshairs text-green-600 mr-2"></i>
+                    <span class="text-sm font-medium">AI定位器</span>
+                </button>
+                <button onclick="scrollToSection('heatmap')" class="flex items-center p-3 bg-purple-50 hover:bg-purple-100 rounded-lg transition-colors">
+                    <i class="fas fa-fire text-purple-600 mr-2"></i>
+                    <span class="text-sm font-medium">技能热力图</span>
+                </button>
+                <button onclick="scrollToSection('plan')" class="flex items-center p-3 bg-orange-50 hover:bg-orange-100 rounded-lg transition-colors">
+                    <i class="fas fa-calendar-alt text-orange-600 mr-2"></i>
+                    <span class="text-sm font-medium">90天计划</span>
+                </button>
+                <button onclick="scrollToSection('market')" class="flex items-center p-3 bg-red-50 hover:bg-red-100 rounded-lg transition-colors">
+                    <i class="fas fa-chart-line text-red-600 mr-2"></i>
+                    <span class="text-sm font-medium">市场洞察</span>
+                </button>
+                <button onclick="scrollToSection('calculator')" class="flex items-center p-3 bg-indigo-50 hover:bg-indigo-100 rounded-lg transition-colors">
+                    <i class="fas fa-calculator text-indigo-600 mr-2"></i>
+                    <span class="text-sm font-medium">风险计算器</span>
+                </button>
+                <button onclick="scrollToSection('profile')" class="flex items-center p-3 bg-gray-50 hover:bg-gray-100 rounded-lg transition-colors">
+                    <i class="fas fa-user text-gray-600 mr-2"></i>
+                    <span class="text-sm font-medium">个人中心</span>
+                </button>
+                <button onclick="scrollToSection('auth')" class="flex items-center p-3 bg-yellow-50 hover:bg-yellow-100 rounded-lg transition-colors">
+                    <i class="fas fa-sign-in-alt text-yellow-600 mr-2"></i>
+                    <span class="text-sm font-medium">登录注册</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Prototype Grid -->
+        <div class="grid grid-cols-1 gap-8">
+            <!-- Home Page -->
+            <div class="prototype-item bg-white rounded-lg shadow-lg overflow-hidden">
+                <div class="p-4 bg-gray-50 border-b">
+                    <h3 class="text-lg font-semibold text-gray-900 flex items-center">
+                        <i class="fas fa-home text-blue-600 mr-2"></i>
+                        首页 (Home)
+                    </h3>
+                    <p class="text-sm text-gray-600 mt-1">产品主页，展示核心价值和功能入口</p>
+                </div>
+                <div class="prototype-frame">
+                    <iframe src="home.html" class="w-full h-full border-0"></iframe>
+                </div>
+            </div>
+
+            <!-- Authentication -->
+            <div class="prototype-item bg-white rounded-lg shadow-lg overflow-hidden">
+                <div class="p-4 bg-gray-50 border-b">
+                    <h3 class="text-lg font-semibold text-gray-900 flex items-center">
+                        <i class="fas fa-sign-in-alt text-teal-600 mr-2"></i>
+                        登录注册 (Authentication)
+                    </h3>
+                    <p class="text-sm text-gray-600 mt-1">用户认证界面，支持多种登录方式</p>
+                </div>
+                <div class="prototype-frame">
+                    <iframe src="auth.html" class="w-full h-full border-0"></iframe>
+                </div>
+            </div>
+
+            <!-- AI Vertical Domain Locator -->
+            <div class="prototype-item bg-white rounded-lg shadow-lg overflow-hidden">
+                <div class="p-4 bg-gray-50 border-b">
+                    <h3 class="text-lg font-semibold text-gray-900 flex items-center">
+                        <i class="fas fa-crosshairs text-purple-600 mr-2"></i>
+                        AI垂直领域定位器 (Locator)
+                    </h3>
+                    <p class="text-sm text-gray-600 mt-1">AI驱动的职业评估和领域推荐</p>
+                </div>
+                <div class="prototype-frame">
+                    <iframe src="locator.html" class="w-full h-full border-0"></iframe>
+                </div>
+            </div>
+
+            <!-- Dynamic Skill Heat Map -->
+            <div class="prototype-item bg-white rounded-lg shadow-lg overflow-hidden">
+                <div class="p-4 bg-gray-50 border-b">
+                    <h3 class="text-lg font-semibold text-gray-900 flex items-center">
+                        <i class="fas fa-fire text-red-600 mr-2"></i>
+                        动态技能热力图 (Heat Map)
+                    </h3>
+                    <p class="text-sm text-gray-600 mt-1">实时技能需求分析和个人技能对比</p>
+                </div>
+                <div class="prototype-frame">
+                    <iframe src="heatmap.html" class="w-full h-full border-0"></iframe>
+                </div>
+            </div>
+
+            <!-- 90-Day Atomic Plan Generator -->
+            <div class="prototype-item bg-white rounded-lg shadow-lg overflow-hidden">
+                <div class="p-4 bg-gray-50 border-b">
+                    <h3 class="text-lg font-semibold text-gray-900 flex items-center">
+                        <i class="fas fa-calendar-alt text-green-600 mr-2"></i>
+                        90天原子化计划生成器 (Planner)
+                    </h3>
+                    <p class="text-sm text-gray-600 mt-1">个性化学习路径规划和进度跟踪</p>
+                </div>
+                <div class="prototype-frame">
+                     <iframe src="planner.html" class="w-full h-full border-0"></iframe>
+                 </div>
+            </div>
+
+            <!-- Real-time Job Deconstruction Engine -->
+            <div class="prototype-item bg-white rounded-lg shadow-lg overflow-hidden">
+                <div class="p-4 bg-gray-50 border-b">
+                    <h3 class="text-lg font-semibold text-gray-900 flex items-center">
+                        <i class="fas fa-search text-indigo-600 mr-2"></i>
+                        实时职位解构引擎 (Analyzer)
+                    </h3>
+                    <p class="text-sm text-gray-600 mt-1">职位需求分析和技能匹配度评估</p>
+                </div>
+                <div class="prototype-frame">
+                     <iframe src="analyzer.html" class="w-full h-full border-0"></iframe>
+                 </div>
+            </div>
+
+            <!-- Risk-Return Calculator -->
+            <div class="prototype-item bg-white rounded-lg shadow-lg overflow-hidden">
+                <div class="p-4 bg-gray-50 border-b">
+                    <h3 class="text-lg font-semibold text-gray-900 flex items-center">
+                        <i class="fas fa-calculator text-orange-600 mr-2"></i>
+                        风险收益计算器 (Calculator)
+                    </h3>
+                    <p class="text-sm text-gray-600 mt-1">职业转换风险评估和收益预测</p>
+                </div>
+                <div class="prototype-frame">
+                    <iframe src="calculator.html" class="w-full h-full border-0"></iframe>
+                </div>
+            </div>
+
+            <!-- User Profile -->
+            <div class="prototype-item bg-white rounded-lg shadow-lg overflow-hidden">
+                <div class="p-4 bg-gray-50 border-b">
+                    <h3 class="text-lg font-semibold text-gray-900 flex items-center">
+                        <i class="fas fa-user-circle text-pink-600 mr-2"></i>
+                        个人中心 (Profile)
+                    </h3>
+                    <p class="text-sm text-gray-600 mt-1">用户档案、学习进度和个人设置</p>
+                </div>
+                <div class="prototype-frame">
+                    <iframe src="profile.html" class="w-full h-full border-0"></iframe>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-white border-t mt-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+            <div class="text-center">
+                <p class="text-gray-600 text-sm">
+                    Career Compass Pro 高保真原型 | 基于 HTML5 + Tailwind CSS + FontAwesome
+                </p>
+                <p class="text-gray-500 text-xs mt-2">
+                    图片来源: Unsplash.com | 设计遵循现代Web应用最佳实践
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        function scrollToSection(sectionId) {
+            document.getElementById(sectionId).scrollIntoView({
+                behavior: 'smooth',
+                block: 'start'
+            });
+        }
+
+        // Add smooth scrolling for better UX
+        document.addEventListener('DOMContentLoaded', function() {
+            // Add loading animation for iframes
+            const iframes = document.querySelectorAll('iframe');
+            iframes.forEach(iframe => {
+                iframe.addEventListener('load', function() {
+                    this.style.opacity = '1';
+                });
+                iframe.style.opacity = '0.8';
+                iframe.style.transition = 'opacity 0.3s ease';
+            });
+        });
+    </script>
+</body>
+</html>
