@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI垂直领域定位器 - Career Compass Pro</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .progress-bar {
+            transition: width 0.3s ease;
+        }
+        .step-indicator {
+            transition: all 0.3s ease;
+        }
+        .step-indicator.active {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+        .step-indicator.completed {
+            background: #10b981;
+            color: white;
+        }
+        .match-card {
+            transition: all 0.3s ease;
+        }
+        .match-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+        .ai-thinking {
+            animation: pulse 2s infinite;
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center">
+                    <a href="home.html" class="flex items-center">
+                        <i class="fas fa-compass text-2xl text-blue-600 mr-3"></i>
+                        <span class="text-xl font-bold text-gray-900">Career Compass Pro</span>
+                    </a>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <span class="text-sm text-gray-500">AI垂直领域定位器</span>
+                    <button class="text-gray-500 hover:text-blue-600">
+                        <i class="fas fa-user-circle text-xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Progress Header -->
+    <div class="bg-white border-b">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+            <div class="flex items-center justify-between mb-4">
+                <h1 class="text-2xl font-bold text-gray-900">
+                    <i class="fas fa-crosshairs text-blue-600 mr-2"></i>
+                    AI垂直领域定位器
+                </h1>
+                <button class="text-gray-500 hover:text-gray-700">
+                    <i class="fas fa-question-circle mr-1"></i>
+                    帮助
+                </button>
+            </div>
+            
+            <!-- Progress Steps -->
+            <div class="flex items-center space-x-4">
+                <div class="step-indicator completed w-8 h-8 rounded-full flex items-center justify-center text-sm font-medium">
+                    <i class="fas fa-check"></i>
+                </div>
+                <div class="flex-1 h-2 bg-gray-200 rounded">
+                    <div class="progress-bar h-full bg-green-500 rounded" style="width: 100%"></div>
+                </div>
+                <div class="step-indicator completed w-8 h-8 rounded-full flex items-center justify-center text-sm font-medium">
+                    <i class="fas fa-check"></i>
+                </div>
+                <div class="flex-1 h-2 bg-gray-200 rounded">
+                    <div class="progress-bar h-full bg-green-500 rounded" style="width: 100%"></div>
+                </div>
+                <div class="step-indicator active w-8 h-8 rounded-full flex items-center justify-center text-sm font-medium">
+                    3
+                </div>
+            </div>
+            
+            <div class="flex justify-between mt-2 text-sm">
+                <span class="text-green-600 font-medium">上传简历</span>
+                <span class="text-green-600 font-medium">选择领域</span>
+                <span class="text-blue-600 font-medium">AI分析结果</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div class="grid lg:grid-cols-3 gap-8">
+            <!-- Left Panel - Analysis Summary -->
+            <div class="lg:col-span-1">
+                <div class="bg-white rounded-lg shadow-sm p-6 mb-6">
+                    <h3 class="text-lg font-semibold text-gray-900 mb-4">
+                        <i class="fas fa-user-circle text-blue-600 mr-2"></i>
+                        个人档案概览
+                    </h3>
+                    <div class="space-y-3">
+                        <div class="flex items-center">
+                            <span class="text-sm text-gray-500 w-16">姓名:</span>
+                            <span class="text-sm font-medium">小明</span>
+                        </div>
+                        <div class="flex items-center">
+                            <span class="text-sm text-gray-500 w-16">专业:</span>
+                            <span class="text-sm font-medium">计算机科学</span>
+                        </div>
+                        <div class="flex items-center">
+                            <span class="text-sm text-gray-500 w-16">经验:</span>
+                            <span class="text-sm font-medium">应届毕业生</span>
+                        </div>
+                        <div class="flex items-center">
+                            <span class="text-sm text-gray-500 w-16">兴趣:</span>
+                            <span class="text-sm font-medium">前端开发</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-lg shadow-sm p-6">
+                    <h3 class="text-lg font-semibold text-gray-900 mb-4">
+                        <i class="fas fa-brain text-purple-600 mr-2"></i>
+                        AI分析过程
+                    </h3>
+                    <div class="space-y-4">
+                        <div class="flex items-center">
+                            <div class="w-6 h-6 bg-green-500 rounded-full flex items-center justify-center mr-3">
+                                <i class="fas fa-check text-white text-xs"></i>
+                            </div>
+                            <span class="text-sm text-gray-700">简历解析完成</span>
+                        </div>
+                        <div class="flex items-center">
+                            <div class="w-6 h-6 bg-green-500 rounded-full flex items-center justify-center mr-3">
+                                <i class="fas fa-check text-white text-xs"></i>
+                            </div>
+                            <span class="text-sm text-gray-700">技能提取完成</span>
+                        </div>
+                        <div class="flex items-center">
+                            <div class="w-6 h-6 bg-green-500 rounded-full flex items-center justify-center mr-3">
+                                <i class="fas fa-check text-white text-xs"></i>
+                            </div>
+                            <span class="text-sm text-gray-700">领域匹配完成</span>
+                        </div>
+                        <div class="flex items-center">
+                            <div class="w-6 h-6 bg-blue-500 rounded-full flex items-center justify-center mr-3 ai-thinking">
+                                <i class="fas fa-cog text-white text-xs"></i>
+                            </div>
+                            <span class="text-sm text-gray-700">生成推荐结果</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Panel - Results -->
+            <div class="lg:col-span-2">
+                <div class="bg-white rounded-lg shadow-sm p-6">
+                    <div class="flex items-center justify-between mb-6">
+                        <h2 class="text-xl font-bold text-gray-900">
+                            <i class="fas fa-target text-green-600 mr-2"></i>
+                            AI推荐结果
+                        </h2>
+                        <div class="flex items-center text-sm text-gray-500">
+                            <i class="fas fa-clock mr-1"></i>
+                            分析完成于 2024-01-15 14:30
+                        </div>
+                    </div>
+
+                    <!-- Top Matches -->
+                    <div class="space-y-4">
+                        <!-- Match 1 -->
+                        <div class="match-card border-2 border-green-200 bg-green-50 rounded-lg p-6">
+                            <div class="flex items-start justify-between mb-4">
+                                <div class="flex items-center">
+                                    <div class="w-12 h-12 bg-green-600 rounded-lg flex items-center justify-center mr-4">
+                                        <i class="fas fa-code text-white text-xl"></i>
+                                    </div>
+                                    <div>
+                                        <h3 class="text-lg font-bold text-gray-900">前端开发工程师</h3>
+                                        <p class="text-sm text-gray-600">Web前端 · 用户界面开发</p>
+                                    </div>
+                                </div>
+                                <div class="text-right">
+                                    <div class="text-2xl font-bold text-green-600">92%</div>
+                                    <div class="text-xs text-gray-500">匹配度</div>
+                                </div>
+                            </div>
+                            
+                            <p class="text-gray-700 mb-4">
+                                基于你的计算机科学背景和对前端技术的兴趣，前端开发工程师是最适合你的职业方向。
+                                该岗位需要HTML、CSS、JavaScript等技能，与你的学习经历高度匹配。
+                            </p>
+                            
+                            <div class="grid md:grid-cols-2 gap-4 mb-4">
+                                <div>
+                                    <h4 class="text-sm font-semibold text-gray-900 mb-2">核心技能要求</h4>
+                                    <div class="flex flex-wrap gap-2">
+                                        <span class="px-2 py-1 bg-blue-100 text-blue-800 text-xs rounded">JavaScript</span>
+                                        <span class="px-2 py-1 bg-blue-100 text-blue-800 text-xs rounded">React</span>
+                                        <span class="px-2 py-1 bg-blue-100 text-blue-800 text-xs rounded">CSS</span>
+                                        <span class="px-2 py-1 bg-blue-100 text-blue-800 text-xs rounded">HTML</span>
+                                    </div>
+                                </div>
+                                <div>
+                                    <h4 class="text-sm font-semibold text-gray-900 mb-2">薪资范围</h4>
+                                    <div class="text-lg font-bold text-green-600">8K - 15K</div>
+                                    <div class="text-xs text-gray-500">应届生起薪</div>
+                                </div>
+                            </div>
+                            
+                            <div class="flex space-x-3">
+                                <button class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors">
+                                    <i class="fas fa-fire mr-1"></i>
+                                    查看技能热力图
+                                </button>
+                                <button class="border border-green-600 text-green-600 hover:bg-green-50 px-4 py-2 rounded-lg text-sm font-medium transition-colors">
+                                    <i class="fas fa-calendar-alt mr-1"></i>
+                                    生成学习计划
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Match 2 -->
+                        <div class="match-card border border-gray-200 bg-white rounded-lg p-6">
+                            <div class="flex items-start justify-between mb-4">
+                                <div class="flex items-center">
+                                    <div class="w-12 h-12 bg-blue-600 rounded-lg flex items-center justify-center mr-4">
+                                        <i class="fas fa-mobile-alt text-white text-xl"></i>
+                                    </div>
+                                    <div>
+                                        <h3 class="text-lg font-bold text-gray-900">移动端开发工程师</h3>
+                                        <p class="text-sm text-gray-600">iOS/Android · 移动应用开发</p>
+                                    </div>
+                                </div>
+                                <div class="text-right">
+                                    <div class="text-2xl font-bold text-blue-600">78%</div>
+                                    <div class="text-xs text-gray-500">匹配度</div>
+                                </div>
+                            </div>
+                            
+                            <p class="text-gray-700 mb-4">
+                                移动端开发是另一个很好的选择，特别是考虑到移动互联网的快速发展。
+                                你的编程基础可以很好地转换到移动端开发领域。
+                            </p>
+                            
+                            <div class="grid md:grid-cols-2 gap-4 mb-4">
+                                <div>
+                                    <h4 class="text-sm font-semibold text-gray-900 mb-2">核心技能要求</h4>
+                                    <div class="flex flex-wrap gap-2">
+                                        <span class="px-2 py-1 bg-purple-100 text-purple-800 text-xs rounded">Swift</span>
+                                        <span class="px-2 py-1 bg-purple-100 text-purple-800 text-xs rounded">Kotlin</span>
+                                        <span class="px-2 py-1 bg-purple-100 text-purple-800 text-xs rounded">React Native</span>
+                                        <span class="px-2 py-1 bg-purple-100 text-purple-800 text-xs rounded">Flutter</span>
+                                    </div>
+                                </div>
+                                <div>
+                                    <h4 class="text-sm font-semibold text-gray-900 mb-2">薪资范围</h4>
+                                    <div class="text-lg font-bold text-blue-600">9K - 18K</div>
+                                    <div class="text-xs text-gray-500">应届生起薪</div>
+                                </div>
+                            </div>
+                            
+                            <div class="flex space-x-3">
+                                <button class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors">
+                                    <i class="fas fa-fire mr-1"></i>
+                                    查看技能热力图
+                                </button>
+                                <button class="border border-blue-600 text-blue-600 hover:bg-blue-50 px-4 py-2 rounded-lg text-sm font-medium transition-colors">
+                                    <i class="fas fa-calendar-alt mr-1"></i>
+                                    生成学习计划
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Match 3 -->
+                        <div class="match-card border border-gray-200 bg-white rounded-lg p-6">
+                            <div class="flex items-start justify-between mb-4">
+                                <div class="flex items-center">
+                                    <div class="w-12 h-12 bg-purple-600 rounded-lg flex items-center justify-center mr-4">
+                                        <i class="fas fa-server text-white text-xl"></i>
+                                    </div>
+                                    <div>
+                                        <h3 class="text-lg font-bold text-gray-900">后端开发工程师</h3>
+                                        <p class="text-sm text-gray-600">服务端 · API开发</p>
+                                    </div>
+                                </div>
+                                <div class="text-right">
+                                    <div class="text-2xl font-bold text-purple-600">65%</div>
+                                    <div class="text-xs text-gray-500">匹配度</div>
+                                </div>
+                            </div>
+                            
+                            <p class="text-gray-700 mb-4">
+                                后端开发注重逻辑思维和系统架构，适合喜欢深入技术细节的开发者。
+                                虽然匹配度相对较低，但仍是一个值得考虑的方向。
+                            </p>
+                            
+                            <div class="grid md:grid-cols-2 gap-4 mb-4">
+                                <div>
+                                    <h4 class="text-sm font-semibold text-gray-900 mb-2">核心技能要求</h4>
+                                    <div class="flex flex-wrap gap-2">
+                                        <span class="px-2 py-1 bg-orange-100 text-orange-800 text-xs rounded">Java</span>
+                                        <span class="px-2 py-1 bg-orange-100 text-orange-800 text-xs rounded">Python</span>
+                                        <span class="px-2 py-1 bg-orange-100 text-orange-800 text-xs rounded">MySQL</span>
+                                        <span class="px-2 py-1 bg-orange-100 text-orange-800 text-xs rounded">Redis</span>
+                                    </div>
+                                </div>
+                                <div>
+                                    <h4 class="text-sm font-semibold text-gray-900 mb-2">薪资范围</h4>
+                                    <div class="text-lg font-bold text-purple-600">10K - 20K</div>
+                                    <div class="text-xs text-gray-500">应届生起薪</div>
+                                </div>
+                            </div>
+                            
+                            <div class="flex space-x-3">
+                                <button class="bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors">
+                                    <i class="fas fa-fire mr-1"></i>
+                                    查看技能热力图
+                                </button>
+                                <button class="border border-purple-600 text-purple-600 hover:bg-purple-50 px-4 py-2 rounded-lg text-sm font-medium transition-colors">
+                                    <i class="fas fa-calendar-alt mr-1"></i>
+                                    生成学习计划
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Action Buttons -->
+                    <div class="mt-8 pt-6 border-t border-gray-200">
+                        <div class="flex flex-col sm:flex-row gap-4">
+                            <button class="flex-1 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white px-6 py-3 rounded-lg font-semibold transition-all">
+                                <i class="fas fa-fire mr-2"></i>
+                                继续分析技能差距
+                            </button>
+                            <button class="flex-1 border border-gray-300 text-gray-700 hover:bg-gray-50 px-6 py-3 rounded-lg font-semibold transition-colors">
+                                <i class="fas fa-redo mr-2"></i>
+                                重新测评
+                            </button>
+                            <button class="border border-gray-300 text-gray-700 hover:bg-gray-50 px-6 py-3 rounded-lg font-semibold transition-colors">
+                                <i class="fas fa-download mr-2"></i>
+                                导出报告
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Floating Help -->
+    <div class="fixed bottom-6 right-6">
+        <button class="bg-blue-600 hover:bg-blue-700 text-white w-12 h-12 rounded-full shadow-lg transition-colors">
+            <i class="fas fa-question text-lg"></i>
+        </button>
+    </div>
+
+    <script>
+        // Simulate AI analysis progress
+        document.addEventListener('DOMContentLoaded', function() {
+            // Add some interactive effects
+            const matchCards = document.querySelectorAll('.match-card');
+            matchCards.forEach(card => {
+                card.addEventListener('click', function() {
+                    // Add selection effect
+                    matchCards.forEach(c => c.classList.remove('ring-2', 'ring-blue-500'));
+                    this.classList.add('ring-2', 'ring-blue-500');
+                });
+            });
+        });
+    </script>
+</body>
+</html>
