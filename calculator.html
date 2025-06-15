@@ -1,0 +1,707 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>风险收益计算器 - Career Compass Pro</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        .calculator-card {
+            transition: all 0.3s ease;
+        }
+        .calculator-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+        }
+        .risk-indicator {
+            transition: all 0.5s ease;
+        }
+        .slider-container {
+            position: relative;
+        }
+        .slider {
+            -webkit-appearance: none;
+            appearance: none;
+            height: 8px;
+            border-radius: 4px;
+            background: linear-gradient(to right, #10b981 0%, #f59e0b 50%, #ef4444 100%);
+            outline: none;
+        }
+        .slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: #ffffff;
+            border: 3px solid #3b82f6;
+            cursor: pointer;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+        .slider::-moz-range-thumb {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: #ffffff;
+            border: 3px solid #3b82f6;
+            cursor: pointer;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+        .metric-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        .result-animation {
+            animation: slideInUp 0.6s ease-out;
+        }
+        @keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        .progress-ring {
+            transition: stroke-dasharray 0.8s ease;
+        }
+        .scenario-card {
+            transition: all 0.3s ease;
+        }
+        .scenario-card:hover {
+            transform: scale(1.02);
+        }
+        .recommendation-badge {
+            animation: pulse 2s infinite;
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center">
+                    <a href="home.html" class="flex items-center">
+                        <i class="fas fa-compass text-2xl text-blue-600 mr-3"></i>
+                        <span class="text-xl font-bold text-gray-900">Career Compass Pro</span>
+                    </a>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <span class="text-sm text-gray-500">风险收益计算器</span>
+                    <button class="text-gray-500 hover:text-blue-600">
+                        <i class="fas fa-user-circle text-xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Header -->
+    <div class="bg-gradient-to-r from-indigo-600 to-purple-600 text-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+            <div class="flex items-center justify-between mb-6">
+                <div>
+                    <h1 class="text-3xl font-bold mb-2">
+                        <i class="fas fa-calculator mr-3"></i>
+                        风险收益计算器
+                    </h1>
+                    <p class="text-indigo-100">
+                        基于AI算法的职业转换风险评估与收益预测
+                    </p>
+                </div>
+                <div class="text-right">
+                    <div class="text-2xl font-bold">AI分析</div>
+                    <div class="text-sm text-indigo-100">智能决策支持</div>
+                </div>
+            </div>
+            
+            <!-- Quick Stats -->
+            <div class="grid md:grid-cols-4 gap-6">
+                <div class="bg-white bg-opacity-10 rounded-lg p-4">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="text-sm text-indigo-100">分析次数</span>
+                        <i class="fas fa-chart-bar text-indigo-200"></i>
+                    </div>
+                    <div class="text-2xl font-bold">1,247</div>
+                    <div class="text-xs text-indigo-100 mt-1">本月累计</div>
+                </div>
+                
+                <div class="bg-white bg-opacity-10 rounded-lg p-4">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="text-sm text-indigo-100">成功转换率</span>
+                        <i class="fas fa-trophy text-yellow-300"></i>
+                    </div>
+                    <div class="text-2xl font-bold">78%</div>
+                    <div class="text-xs text-indigo-100 mt-1">用户反馈</div>
+                </div>
+                
+                <div class="bg-white bg-opacity-10 rounded-lg p-4">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="text-sm text-indigo-100">平均提升</span>
+                        <i class="fas fa-arrow-up text-green-300"></i>
+                    </div>
+                    <div class="text-2xl font-bold">+32%</div>
+                    <div class="text-xs text-indigo-100 mt-1">薪资增长</div>
+                </div>
+                
+                <div class="bg-white bg-opacity-10 rounded-lg p-4">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="text-sm text-indigo-100">风险评级</span>
+                        <i class="fas fa-shield-alt text-blue-300"></i>
+                    </div>
+                    <div class="text-2xl font-bold">中等</div>
+                    <div class="text-xs text-indigo-100 mt-1">当前方案</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div class="grid lg:grid-cols-3 gap-8">
+            <!-- Left Panel - Input Parameters -->
+            <div class="lg:col-span-1">
+                <!-- Current Situation -->
+                <div class="calculator-card bg-white rounded-lg shadow-sm p-6 mb-6">
+                    <h3 class="text-lg font-semibold text-gray-900 mb-4">
+                        <i class="fas fa-user-tie text-blue-600 mr-2"></i>
+                        当前状况
+                    </h3>
+                    
+                    <div class="space-y-4">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">当前职位</label>
+                            <input type="text" value="前端开发工程师" 
+                                   class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">工作年限</label>
+                            <select class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                <option>2-3年</option>
+                                <option>1-2年</option>
+                                <option>3-5年</option>
+                                <option>5年以上</option>
+                            </select>
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">当前薪资 (K/月)</label>
+                            <div class="relative">
+                                <input type="number" value="18" 
+                                       class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                <span class="absolute right-3 top-2 text-gray-500">K</span>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">工作满意度</label>
+                            <div class="slider-container">
+                                <input type="range" min="1" max="10" value="6" class="slider w-full" id="satisfactionSlider">
+                                <div class="flex justify-between text-xs text-gray-500 mt-1">
+                                    <span>很不满意</span>
+                                    <span>一般</span>
+                                    <span>非常满意</span>
+                                </div>
+                            </div>
+                            <div class="text-center mt-2">
+                                <span class="text-lg font-semibold text-blue-600" id="satisfactionValue">6/10</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Target Position -->
+                <div class="calculator-card bg-white rounded-lg shadow-sm p-6 mb-6">
+                    <h3 class="text-lg font-semibold text-gray-900 mb-4">
+                        <i class="fas fa-bullseye text-purple-600 mr-2"></i>
+                        目标职位
+                    </h3>
+                    
+                    <div class="space-y-4">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">目标职位</label>
+                            <input type="text" value="全栈开发工程师" 
+                                   class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-purple-500">
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">目标行业</label>
+                            <select class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-purple-500">
+                                <option>互联网/科技</option>
+                                <option>金融科技</option>
+                                <option>电商</option>
+                                <option>教育科技</option>
+                            </select>
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">期望薪资 (K/月)</label>
+                            <div class="relative">
+                                <input type="number" value="28" 
+                                       class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-purple-500">
+                                <span class="absolute right-3 top-2 text-gray-500">K</span>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">转换时间框架</label>
+                            <select class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-purple-500">
+                                <option>6个月内</option>
+                                <option>3个月内</option>
+                                <option>1年内</option>
+                                <option>2年内</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Risk Tolerance -->
+                <div class="calculator-card bg-white rounded-lg shadow-sm p-6">
+                    <h3 class="text-lg font-semibold text-gray-900 mb-4">
+                        <i class="fas fa-balance-scale text-orange-600 mr-2"></i>
+                        风险偏好
+                    </h3>
+                    
+                    <div class="space-y-4">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">风险承受能力</label>
+                            <div class="slider-container">
+                                <input type="range" min="1" max="10" value="7" class="slider w-full" id="riskSlider">
+                                <div class="flex justify-between text-xs text-gray-500 mt-1">
+                                    <span>保守</span>
+                                    <span>平衡</span>
+                                    <span>激进</span>
+                                </div>
+                            </div>
+                            <div class="text-center mt-2">
+                                <span class="text-lg font-semibold text-orange-600" id="riskValue">7/10</span>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">财务状况</label>
+                            <select class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-orange-500">
+                                <option>有充足储蓄</option>
+                                <option>有一定储蓄</option>
+                                <option>储蓄较少</option>
+                                <option>无储蓄</option>
+                            </select>
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">家庭负担</label>
+                            <select class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-orange-500">
+                                <option>较轻</option>
+                                <option>无</option>
+                                <option>一般</option>
+                                <option>较重</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-6">
+                        <button onclick="calculateRisk()" class="w-full bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white py-3 px-4 rounded-lg font-semibold transition-all">
+                            <i class="fas fa-calculator mr-2"></i>
+                            开始AI分析
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Panel - Results -->
+            <div class="lg:col-span-2">
+                <!-- Risk Assessment Results -->
+                <div class="result-animation bg-white rounded-lg shadow-sm p-6 mb-6">
+                    <div class="flex items-center justify-between mb-6">
+                        <h2 class="text-xl font-bold text-gray-900">
+                            <i class="fas fa-chart-line text-indigo-600 mr-2"></i>
+                            AI风险评估报告
+                        </h2>
+                        <div class="recommendation-badge bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm font-medium">
+                            <i class="fas fa-thumbs-up mr-1"></i>
+                            推荐执行
+                        </div>
+                    </div>
+
+                    <!-- Overall Score -->
+                    <div class="grid md:grid-cols-3 gap-6 mb-8">
+                        <div class="text-center">
+                            <div class="relative inline-block mb-4">
+                                <svg class="w-24 h-24 transform -rotate-90">
+                                    <circle cx="48" cy="48" r="40" stroke="#e5e7eb" stroke-width="8" fill="none"></circle>
+                                    <circle cx="48" cy="48" r="40" stroke="#10b981" stroke-width="8" fill="none" 
+                                            stroke-dasharray="251" stroke-dashoffset="75" class="progress-ring"></circle>
+                                </svg>
+                                <div class="absolute inset-0 flex items-center justify-center">
+                                    <span class="text-xl font-bold text-gray-900">70%</span>
+                                </div>
+                            </div>
+                            <h3 class="font-semibold text-gray-900">成功概率</h3>
+                            <p class="text-sm text-gray-600">基于AI模型预测</p>
+                        </div>
+                        
+                        <div class="text-center">
+                            <div class="relative inline-block mb-4">
+                                <svg class="w-24 h-24 transform -rotate-90">
+                                    <circle cx="48" cy="48" r="40" stroke="#e5e7eb" stroke-width="8" fill="none"></circle>
+                                    <circle cx="48" cy="48" r="40" stroke="#f59e0b" stroke-width="8" fill="none" 
+                                            stroke-dasharray="251" stroke-dashoffset="125" class="progress-ring"></circle>
+                                </svg>
+                                <div class="absolute inset-0 flex items-center justify-center">
+                                    <span class="text-xl font-bold text-gray-900">50%</span>
+                                </div>
+                            </div>
+                            <h3 class="font-semibold text-gray-900">风险等级</h3>
+                            <p class="text-sm text-gray-600">中等风险</p>
+                        </div>
+                        
+                        <div class="text-center">
+                            <div class="relative inline-block mb-4">
+                                <svg class="w-24 h-24 transform -rotate-90">
+                                    <circle cx="48" cy="48" r="40" stroke="#e5e7eb" stroke-width="8" fill="none"></circle>
+                                    <circle cx="48" cy="48" r="40" stroke="#3b82f6" stroke-width="8" fill="none" 
+                                            stroke-dasharray="251" stroke-dashoffset="50" class="progress-ring"></circle>
+                                </svg>
+                                <div class="absolute inset-0 flex items-center justify-center">
+                                    <span class="text-xl font-bold text-gray-900">+56%</span>
+                                </div>
+                            </div>
+                            <h3 class="font-semibold text-gray-900">收益预期</h3>
+                            <p class="text-sm text-gray-600">薪资增长幅度</p>
+                        </div>
+                    </div>
+
+                    <!-- Detailed Analysis -->
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <!-- Risk Factors -->
+                        <div>
+                            <h4 class="font-semibold text-gray-900 mb-4">
+                                <i class="fas fa-exclamation-triangle text-red-500 mr-2"></i>
+                                风险因素
+                            </h4>
+                            <div class="space-y-3">
+                                <div class="flex items-center justify-between p-3 bg-red-50 rounded-lg">
+                                    <div class="flex items-center">
+                                        <div class="w-2 h-2 bg-red-500 rounded-full mr-3"></div>
+                                        <span class="text-sm font-medium text-gray-900">技能差距</span>
+                                    </div>
+                                    <span class="text-sm text-red-600 font-medium">高</span>
+                                </div>
+                                
+                                <div class="flex items-center justify-between p-3 bg-yellow-50 rounded-lg">
+                                    <div class="flex items-center">
+                                        <div class="w-2 h-2 bg-yellow-500 rounded-full mr-3"></div>
+                                        <span class="text-sm font-medium text-gray-900">市场竞争</span>
+                                    </div>
+                                    <span class="text-sm text-yellow-600 font-medium">中</span>
+                                </div>
+                                
+                                <div class="flex items-center justify-between p-3 bg-green-50 rounded-lg">
+                                    <div class="flex items-center">
+                                        <div class="w-2 h-2 bg-green-500 rounded-full mr-3"></div>
+                                        <span class="text-sm font-medium text-gray-900">行业前景</span>
+                                    </div>
+                                    <span class="text-sm text-green-600 font-medium">低</span>
+                                </div>
+                                
+                                <div class="flex items-center justify-between p-3 bg-yellow-50 rounded-lg">
+                                    <div class="flex items-center">
+                                        <div class="w-2 h-2 bg-yellow-500 rounded-full mr-3"></div>
+                                        <span class="text-sm font-medium text-gray-900">转换成本</span>
+                                    </div>
+                                    <span class="text-sm text-yellow-600 font-medium">中</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Success Factors -->
+                        <div>
+                            <h4 class="font-semibold text-gray-900 mb-4">
+                                <i class="fas fa-check-circle text-green-500 mr-2"></i>
+                                成功因素
+                            </h4>
+                            <div class="space-y-3">
+                                <div class="flex items-center justify-between p-3 bg-green-50 rounded-lg">
+                                    <div class="flex items-center">
+                                        <div class="w-2 h-2 bg-green-500 rounded-full mr-3"></div>
+                                        <span class="text-sm font-medium text-gray-900">基础技能</span>
+                                    </div>
+                                    <span class="text-sm text-green-600 font-medium">强</span>
+                                </div>
+                                
+                                <div class="flex items-center justify-between p-3 bg-green-50 rounded-lg">
+                                    <div class="flex items-center">
+                                        <div class="w-2 h-2 bg-green-500 rounded-full mr-3"></div>
+                                        <span class="text-sm font-medium text-gray-900">学习能力</span>
+                                    </div>
+                                    <span class="text-sm text-green-600 font-medium">强</span>
+                                </div>
+                                
+                                <div class="flex items-center justify-between p-3 bg-blue-50 rounded-lg">
+                                    <div class="flex items-center">
+                                        <div class="w-2 h-2 bg-blue-500 rounded-full mr-3"></div>
+                                        <span class="text-sm font-medium text-gray-900">市场需求</span>
+                                    </div>
+                                    <span class="text-sm text-blue-600 font-medium">高</span>
+                                </div>
+                                
+                                <div class="flex items-center justify-between p-3 bg-purple-50 rounded-lg">
+                                    <div class="flex items-center">
+                                        <div class="w-2 h-2 bg-purple-500 rounded-full mr-3"></div>
+                                        <span class="text-sm font-medium text-gray-900">薪资潜力</span>
+                                    </div>
+                                    <span class="text-sm text-purple-600 font-medium">高</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Scenario Comparison -->
+                <div class="bg-white rounded-lg shadow-sm p-6 mb-6">
+                    <h3 class="text-lg font-semibold text-gray-900 mb-6">
+                        <i class="fas fa-compare text-blue-600 mr-2"></i>
+                        情景对比分析
+                    </h3>
+                    
+                    <div class="grid md:grid-cols-3 gap-4">
+                        <!-- Conservative Scenario -->
+                        <div class="scenario-card border border-gray-200 rounded-lg p-4">
+                            <div class="text-center mb-4">
+                                <div class="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-2">
+                                    <i class="fas fa-shield-alt text-green-600"></i>
+                                </div>
+                                <h4 class="font-semibold text-gray-900">保守方案</h4>
+                                <p class="text-xs text-gray-600">稳步转换</p>
+                            </div>
+                            
+                            <div class="space-y-3 text-sm">
+                                <div class="flex justify-between">
+                                    <span class="text-gray-600">成功率</span>
+                                    <span class="font-medium text-green-600">85%</span>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span class="text-gray-600">时间</span>
+                                    <span class="font-medium">12个月</span>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span class="text-gray-600">薪资增长</span>
+                                    <span class="font-medium text-blue-600">+25%</span>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span class="text-gray-600">风险等级</span>
+                                    <span class="font-medium text-green-600">低</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Balanced Scenario -->
+                        <div class="scenario-card border-2 border-blue-500 rounded-lg p-4 bg-blue-50">
+                            <div class="text-center mb-4">
+                                <div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-2">
+                                    <i class="fas fa-balance-scale text-blue-600"></i>
+                                </div>
+                                <h4 class="font-semibold text-gray-900">平衡方案</h4>
+                                <p class="text-xs text-blue-600 font-medium">推荐方案</p>
+                            </div>
+                            
+                            <div class="space-y-3 text-sm">
+                                <div class="flex justify-between">
+                                    <span class="text-gray-600">成功率</span>
+                                    <span class="font-medium text-blue-600">70%</span>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span class="text-gray-600">时间</span>
+                                    <span class="font-medium">6个月</span>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span class="text-gray-600">薪资增长</span>
+                                    <span class="font-medium text-blue-600">+56%</span>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span class="text-gray-600">风险等级</span>
+                                    <span class="font-medium text-yellow-600">中</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Aggressive Scenario -->
+                        <div class="scenario-card border border-gray-200 rounded-lg p-4">
+                            <div class="text-center mb-4">
+                                <div class="w-12 h-12 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-2">
+                                    <i class="fas fa-rocket text-red-600"></i>
+                                </div>
+                                <h4 class="font-semibold text-gray-900">激进方案</h4>
+                                <p class="text-xs text-gray-600">快速转换</p>
+                            </div>
+                            
+                            <div class="space-y-3 text-sm">
+                                <div class="flex justify-between">
+                                    <span class="text-gray-600">成功率</span>
+                                    <span class="font-medium text-red-600">45%</span>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span class="text-gray-600">时间</span>
+                                    <span class="font-medium">3个月</span>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span class="text-gray-600">薪资增长</span>
+                                    <span class="font-medium text-blue-600">+80%</span>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span class="text-gray-600">风险等级</span>
+                                    <span class="font-medium text-red-600">高</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Action Plan -->
+                <div class="bg-white rounded-lg shadow-sm p-6">
+                    <h3 class="text-lg font-semibold text-gray-900 mb-6">
+                        <i class="fas fa-road text-purple-600 mr-2"></i>
+                        AI推荐行动计划
+                    </h3>
+                    
+                    <div class="space-y-4">
+                        <div class="flex items-start space-x-4 p-4 bg-blue-50 rounded-lg">
+                            <div class="w-8 h-8 bg-blue-600 text-white rounded-full flex items-center justify-center text-sm font-bold">
+                                1
+                            </div>
+                            <div class="flex-1">
+                                <h4 class="font-semibold text-gray-900 mb-1">技能提升阶段 (1-3个月)</h4>
+                                <p class="text-sm text-gray-600 mb-2">
+                                    重点学习Node.js、数据库设计、API开发等后端技能
+                                </p>
+                                <div class="flex flex-wrap gap-2">
+                                    <span class="px-2 py-1 bg-blue-100 text-blue-800 text-xs rounded">Node.js</span>
+                                    <span class="px-2 py-1 bg-blue-100 text-blue-800 text-xs rounded">Express</span>
+                                    <span class="px-2 py-1 bg-blue-100 text-blue-800 text-xs rounded">MongoDB</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start space-x-4 p-4 bg-green-50 rounded-lg">
+                            <div class="w-8 h-8 bg-green-600 text-white rounded-full flex items-center justify-center text-sm font-bold">
+                                2
+                            </div>
+                            <div class="flex-1">
+                                <h4 class="font-semibold text-gray-900 mb-1">项目实践阶段 (3-5个月)</h4>
+                                <p class="text-sm text-gray-600 mb-2">
+                                    构建2-3个全栈项目，建立完整的作品集
+                                </p>
+                                <div class="flex flex-wrap gap-2">
+                                    <span class="px-2 py-1 bg-green-100 text-green-800 text-xs rounded">全栈项目</span>
+                                    <span class="px-2 py-1 bg-green-100 text-green-800 text-xs rounded">GitHub</span>
+                                    <span class="px-2 py-1 bg-green-100 text-green-800 text-xs rounded">部署</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start space-x-4 p-4 bg-purple-50 rounded-lg">
+                            <div class="w-8 h-8 bg-purple-600 text-white rounded-full flex items-center justify-center text-sm font-bold">
+                                3
+                            </div>
+                            <div class="flex-1">
+                                <h4 class="font-semibold text-gray-900 mb-1">求职准备阶段 (5-6个月)</h4>
+                                <p class="text-sm text-gray-600 mb-2">
+                                    优化简历，准备面试，投递目标职位
+                                </p>
+                                <div class="flex flex-wrap gap-2">
+                                    <span class="px-2 py-1 bg-purple-100 text-purple-800 text-xs rounded">简历优化</span>
+                                    <span class="px-2 py-1 bg-purple-100 text-purple-800 text-xs rounded">面试准备</span>
+                                    <span class="px-2 py-1 bg-purple-100 text-purple-800 text-xs rounded">网络建设</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-6 flex space-x-4">
+                        <button class="flex-1 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white py-3 px-4 rounded-lg font-semibold transition-all">
+                            <i class="fas fa-calendar-plus mr-2"></i>
+                            生成学习计划
+                        </button>
+                        <button class="flex-1 border border-gray-300 text-gray-700 py-3 px-4 rounded-lg font-semibold hover:bg-gray-50 transition-colors">
+                            <i class="fas fa-download mr-2"></i>
+                            导出报告
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Slider value updates
+        document.getElementById('satisfactionSlider').addEventListener('input', function() {
+            document.getElementById('satisfactionValue').textContent = this.value + '/10';
+        });
+        
+        document.getElementById('riskSlider').addEventListener('input', function() {
+            document.getElementById('riskValue').textContent = this.value + '/10';
+        });
+        
+        // Calculate risk function
+        function calculateRisk() {
+            // Show loading state
+            const button = event.target;
+            const originalText = button.innerHTML;
+            button.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i>分析中...';
+            button.disabled = true;
+            
+            // Simulate AI calculation
+            setTimeout(() => {
+                button.innerHTML = originalText;
+                button.disabled = false;
+                
+                // Add animation to results
+                document.querySelectorAll('.result-animation').forEach(el => {
+                    el.style.animation = 'none';
+                    el.offsetHeight; // Trigger reflow
+                    el.style.animation = 'slideInUp 0.6s ease-out';
+                });
+                
+                // Update progress rings with animation
+                updateProgressRings();
+            }, 2000);
+        }
+        
+        function updateProgressRings() {
+            const rings = document.querySelectorAll('.progress-ring');
+            rings.forEach(ring => {
+                const currentDasharray = ring.style.strokeDasharray || ring.getAttribute('stroke-dasharray');
+                ring.style.strokeDasharray = '0';
+                setTimeout(() => {
+                    ring.style.strokeDasharray = currentDasharray;
+                }, 100);
+            });
+        }
+        
+        // Scenario card interactions
+        document.querySelectorAll('.scenario-card').forEach(card => {
+            card.addEventListener('click', function() {
+                // Remove selection from other cards
+                document.querySelectorAll('.scenario-card').forEach(c => {
+                    c.classList.remove('border-2', 'border-blue-500', 'bg-blue-50');
+                    c.classList.add('border', 'border-gray-200');
+                });
+                
+                // Select this card
+                this.classList.remove('border', 'border-gray-200');
+                this.classList.add('border-2', 'border-blue-500', 'bg-blue-50');
+            });
+        });
+        
+        // Initialize with some default animations
+        document.addEventListener('DOMContentLoaded', function() {
+            setTimeout(updateProgressRings, 500);
+        });
+    </script>
+</body>
+</html>
